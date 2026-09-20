@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+
 import '../data/habit_data.dart';
 import 'detail_habit_screen.dart';
 import 'placeholder_screen.dart';
+import 'quote_screen.dart';
+import 'progress_screen.dart';
 
 // ============================================================
 // Layar 6: Home (Dashboard) — StatelessWidget
@@ -25,9 +28,7 @@ class HomeScreen extends StatelessWidget {
           children: [
             // Header Drawer
             const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.indigo,
-              ),
+              decoration: BoxDecoration(color: Colors.indigo),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -35,11 +36,7 @@ class HomeScreen extends StatelessWidget {
                   CircleAvatar(
                     radius: 30,
                     backgroundColor: Colors.white,
-                    child: Icon(
-                      Icons.person,
-                      size: 36,
-                      color: Colors.indigo,
-                    ),
+                    child: Icon(Icons.person, size: 36, color: Colors.indigo),
                   ),
                   SizedBox(height: 10),
                   Text(
@@ -52,10 +49,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   Text(
                     'Self-Improvement App',
-                    style: TextStyle(
-                      color: Colors.white70,
-                      fontSize: 13,
-                    ),
+                    style: TextStyle(color: Colors.white70, fontSize: 13),
                   ),
                 ],
               ),
@@ -73,8 +67,7 @@ class HomeScreen extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => const PlaceholderScreen(
                       title: 'Splash Screen',
-                      description:
-                          'Logo + tagline motivasi singkat.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
+                      description: 'Logo + tagline motivasi singkat.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
                       icon: Icons.flash_on,
                     ),
                   ),
@@ -94,8 +87,7 @@ class HomeScreen extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => const PlaceholderScreen(
                       title: 'Onboarding',
-                      description:
-                          'Slide 1: "Bangun kebiasaan baik setiap hari"\nSlide 2: "Pantau progress dirimu"\n\n(Layar ini akan dibuat oleh anggota tim lain)',
+                      description: 'Slide 1: "Bangun kebiasaan baik setiap hari"\nSlide 2: "Pantau progress dirimu"\n\n(Layar ini akan dibuat oleh anggota tim lain)',
                       icon: Icons.swipe,
                     ),
                   ),
@@ -115,8 +107,7 @@ class HomeScreen extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => const PlaceholderScreen(
                       title: 'Login',
-                      description:
-                          'Halaman login pengguna.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
+                      description: 'Halaman login pengguna.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
                       icon: Icons.login,
                     ),
                   ),
@@ -136,8 +127,7 @@ class HomeScreen extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => const PlaceholderScreen(
                       title: 'Register',
-                      description:
-                          'Halaman registrasi pengguna baru.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
+                      description: 'Halaman registrasi pengguna baru.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
                       icon: Icons.person_add,
                     ),
                   ),
@@ -169,12 +159,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PlaceholderScreen(
-                      title: 'Statistik / Progress',
-                      description:
-                          'Grafik progress mingguan (bar chart sederhana).\n\n(Layar ini akan dibuat oleh anggota tim lain)',
-                      icon: Icons.bar_chart,
-                    ),
+                    builder: (context) => const ProgressScreen(),
                   ),
                 );
               },
@@ -189,14 +174,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.pop(context);
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const PlaceholderScreen(
-                      title: 'Quote / Artikel Motivasi',
-                      description:
-                          'Kumpulan quote dan artikel motivasi.\nTap → Detail Quote.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
-                      icon: Icons.format_quote,
-                    ),
-                  ),
+                  MaterialPageRoute(builder: (context) => const QuoteScreen()),
                 );
               },
             ),
@@ -213,8 +191,7 @@ class HomeScreen extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => const PlaceholderScreen(
                       title: 'Profil',
-                      description:
-                          'Foto, nama, total habit yang diikuti.\nMenu: Pengaturan, Tentang Aplikasi, Logout.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
+                      description: 'Foto, nama, total habit yang diikuti.\nMenu: Pengaturan, Tentang Aplikasi, Logout.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
                       icon: Icons.person,
                     ),
                   ),
@@ -234,18 +211,12 @@ class HomeScreen extends StatelessWidget {
               // --- Bagian Sambutan (Greeting Header) ---
               const Text(
                 'Selamat pagi, Lyz!',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 4),
               const Text(
                 'Yuk lanjutkan langkah kecilmu hari ini',
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.grey,
-                ),
+                style: TextStyle(fontSize: 14, color: Colors.grey),
               ),
               const SizedBox(height: 20),
 
@@ -299,10 +270,7 @@ class HomeScreen extends StatelessWidget {
               // --- Menu Navigasi Cepat (Quick Access Buttons) ---
               const Text(
                 'Menu Fitur',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
 
@@ -320,12 +288,7 @@ class HomeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const PlaceholderScreen(
-                            title: 'Statistik / Progress',
-                            description:
-                                'Grafik progress mingguan (bar chart sederhana).\n\n(Layar ini akan dibuat oleh anggota tim lain)',
-                            icon: Icons.bar_chart,
-                          ),
+                          builder: (context) => const ProgressScreen(),
                         ),
                       );
                     },
@@ -341,12 +304,7 @@ class HomeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const PlaceholderScreen(
-                            title: 'Quote / Artikel Motivasi',
-                            description:
-                                'Kumpulan quote dan artikel motivasi.\nTap → Detail Quote.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
-                            icon: Icons.format_quote,
-                          ),
+                          builder: (context) => const QuoteScreen(),
                         ),
                       );
                     },
@@ -364,8 +322,7 @@ class HomeScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => const PlaceholderScreen(
                             title: 'Profil',
-                            description:
-                                'Foto, nama, total habit yang diikuti.\nMenu: Pengaturan, Tentang Aplikasi, Logout.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
+                            description: 'Foto, nama, total habit yang diikuti.\nMenu: Pengaturan, Tentang Aplikasi, Logout.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
                             icon: Icons.person,
                           ),
                         ),
@@ -385,8 +342,7 @@ class HomeScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => const PlaceholderScreen(
                             title: 'Login',
-                            description:
-                                'Halaman login pengguna.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
+                            description: 'Halaman login pengguna.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
                             icon: Icons.login,
                           ),
                         ),
@@ -400,10 +356,7 @@ class HomeScreen extends StatelessWidget {
               // --- Header Section Kebiasaan ---
               const Text(
                 'Kebiasaan Hari Ini',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 12),
 
