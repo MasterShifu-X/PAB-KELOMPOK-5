@@ -1,16 +1,28 @@
 import 'package:flutter/material.dart';
 
 import '../data/habit_data.dart';
+import '../data/user_data.dart';
 import 'detail_habit_screen.dart';
+import 'login_screen.dart';
 import 'placeholder_screen.dart';
-import 'quote_screen.dart';
 import 'progress_screen.dart';
+import 'quote_screen.dart';
+import 'register_screen.dart';
 
 // ============================================================
 // Layar 6: Home (Dashboard) — StatelessWidget
 // ============================================================
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  final String? userName;
+
+  const HomeScreen({super.key, this.userName});
+
+  String get displayName {
+    if (userName != null && userName!.trim().isNotEmpty) {
+      return userName!;
+    }
+    return UserData.activeUserName;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,27 +39,27 @@ class HomeScreen extends StatelessWidget {
           padding: EdgeInsets.zero,
           children: [
             // Header Drawer
-            const DrawerHeader(
-              decoration: BoxDecoration(color: Colors.indigo),
+            DrawerHeader(
+              decoration: const BoxDecoration(color: Colors.indigo),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  CircleAvatar(
+                  const CircleAvatar(
                     radius: 30,
                     backgroundColor: Colors.white,
                     child: Icon(Icons.person, size: 36, color: Colors.indigo),
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Text(
-                    'Lyz',
-                    style: TextStyle(
+                    displayName,
+                    style: const TextStyle(
                       color: Colors.white,
                       fontSize: 18,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
+                  const Text(
                     'Self-Improvement App',
                     style: TextStyle(color: Colors.white70, fontSize: 13),
                   ),
@@ -105,11 +117,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PlaceholderScreen(
-                      title: 'Login',
-                      description: 'Halaman login pengguna.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
-                      icon: Icons.login,
-                    ),
+                    builder: (context) => LoginScreen(),
                   ),
                 );
               },
@@ -125,11 +133,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PlaceholderScreen(
-                      title: 'Register',
-                      description: 'Halaman registrasi pengguna baru.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
-                      icon: Icons.person_add,
-                    ),
+                    builder: (context) => RegisterScreen(),
                   ),
                 );
               },
@@ -209,9 +213,9 @@ class HomeScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // --- Bagian Sambutan (Greeting Header) ---
-              const Text(
-                'Selamat pagi, Lyz!',
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+              Text(
+                'Selamat pagi, $displayName!',
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 4),
               const Text(
@@ -340,11 +344,7 @@ class HomeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const PlaceholderScreen(
-                            title: 'Login',
-                            description: 'Halaman login pengguna.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
-                            icon: Icons.login,
-                          ),
+                          builder: (context) => LoginScreen(),
                         ),
                       );
                     },
