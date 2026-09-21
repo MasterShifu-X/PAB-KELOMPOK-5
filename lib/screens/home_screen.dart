@@ -5,10 +5,11 @@ import '../data/user_data.dart';
 import 'detail_habit_screen.dart';
 import 'onboarding_screen.dart';
 import 'login_screen.dart';
-import 'placeholder_screen.dart';
 import 'progress_screen.dart';
 import 'quote_screen.dart';
 import 'register_screen.dart';
+import 'profile_screen.dart';
+import 'splash_screen.dart';
 
 // ============================================================
 // Layar 6: Home (Dashboard) — StatelessWidget
@@ -78,12 +79,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PlaceholderScreen(
-                      title: 'Splash Screen',
-                      description:
-                          'Logo + tagline motivasi singkat.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
-                      icon: Icons.flash_on,
-                    ),
+                    builder: (context) => const SplashScreen(),
                   ),
                 );
               },
@@ -192,12 +188,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PlaceholderScreen(
-                      title: 'Profil',
-                      description:
-                          'Foto, nama, total habit yang diikuti.\nMenu: Pengaturan, Tentang Aplikasi, Logout.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
-                      icon: Icons.person,
-                    ),
+                    builder: (context) => const ProfileScreen(),
                   ),
                 );
               },
@@ -325,12 +316,7 @@ class HomeScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const PlaceholderScreen(
-                            title: 'Profil',
-                            description:
-                                'Foto, nama, total habit yang diikuti.\nMenu: Pengaturan, Tentang Aplikasi, Logout.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
-                            icon: Icons.person,
-                          ),
+                          builder: (context) => const ProfileScreen(),
                         ),
                       );
                     },
