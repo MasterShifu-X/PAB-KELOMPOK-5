@@ -2,30 +2,27 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 
-import 'home_screen.dart';
+import 'onboarding_screen.dart';
 
-class SplashScreen extends StatefulWidget {
+// ============================================================
+// Layar 1: Splash Screen — StatelessWidget (100% Stateless)
+// ============================================================
+class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
 
   @override
-  State<SplashScreen> createState() => _SplashScreenState();
-}
-
-class _SplashScreenState extends State<SplashScreen> {
-  @override
-  void initState() {
-    super.initState();
-    Timer(const Duration(seconds: 2), () {
-      if (!mounted) return;
-      Navigator.pushReplacement(
-        context,
-        MaterialPageRoute(builder: (context) => const HomeScreen()),
-      );
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Timer(const Duration(seconds: 2), () {
+        if (context.mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => const OnboardingPage1()),
+          );
+        }
+      });
+    });
+
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FF),
       body: SafeArea(

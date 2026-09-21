@@ -2,27 +2,32 @@ import 'package:flutter/material.dart';
 
 import '../data/user_data.dart';
 
-class ProfileScreen extends StatefulWidget {
+// ============================================================
+// Layar 10: Profil — StatelessWidget (100% Stateless)
+// Menggunakan ValueNotifier dan AnimatedBuilder untuk state reaktif
+// tanpa menggunakan StatefulWidget
+// ============================================================
+class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
 
-  @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
-}
-
-class _ProfileScreenState extends State<ProfileScreen> {
-  late String _userName;
-  String _interests = 'Olahraga, Membaca, Belajar';
-  String _bio = 'Saya sedang membangun kebiasaan yang lebih baik.';
-  IconData _profileIcon = Icons.person;
-
-  @override
-  void initState() {
-    super.initState();
-    _userName = UserData.activeUserName;
-  }
+  // State disimpan via ValueNotifier statis agar persisten dan tetap Stateless
+  static final ValueNotifier<String> userNameNotifier =
+      ValueNotifier<String>(UserData.activeUserName);
+  static final ValueNotifier<String> interestsNotifier =
+      ValueNotifier<String>('Olahraga, Membaca, Belajar');
+  static final ValueNotifier<String> bioNotifier =
+      ValueNotifier<String>('Saya sedang membangun kebiasaan yang lebih baik.');
+  static final ValueNotifier<IconData> profileIconNotifier =
+      ValueNotifier<IconData>(Icons.person);
 
   @override
   Widget build(BuildContext context) {
+    // Sinkronisasi nama jika akun pengguna baru saja login/berubah di UserData
+    if (userNameNotifier.value != UserData.activeUserName &&
+        UserData.activeUserName.isNotEmpty) {
+      userNameNotifier.value = UserData.activeUserName;
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profil'),
@@ -32,126 +37,144 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
-          child: Column(
-            children: [
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 42,
-                        backgroundColor: Colors.indigo.shade100,
-                        child: Icon(
-                          _profileIcon,
-                          size: 48,
-                          color: Colors.indigo.shade700,
-                        ),
+          child: AnimatedBuilder(
+            animation: Listenable.merge([
+              userNameNotifier,
+              interestsNotifier,
+              bioNotifier,
+              profileIconNotifier,
+            ]),
+            builder: (context, _) {
+              final userName = userNameNotifier.value;
+              final interests = interestsNotifier.value;
+              final bio = bioNotifier.value;
+              final profileIcon = profileIconNotifier.value;
+
+              return Column(
+                children: [
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 42,
+                            backgroundColor: Colors.indigo.shade100,
+                            child: Icon(
+                              profileIcon,
+                              size: 48,
+                              color: Colors.indigo.shade700,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          Text(
+                            userName,
+                            style: const TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          const Text(
+                            '5 Habit Diikuti',
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        ],
                       ),
-                      const SizedBox(height: 12),
-                      Text(
-                        _userName,
-                        style: const TextStyle(
-                          fontSize: 22,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      const Text(
-                        '5 Habit Diikuti',
-                        style: TextStyle(color: Colors.grey),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Hobi / Minat',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                  const SizedBox(height: 16),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Hobi / Minat',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(interests),
+                          const SizedBox(height: 16),
+                          const Text(
+                            'Bio',
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(bio),
+                        ],
                       ),
-                      const SizedBox(height: 4),
-                      Text(_interests),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Bio',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(_bio),
-                    ],
+                    ),
                   ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              Card(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  children: [
-                    ListTile(
-                      leading: const Icon(Icons.edit_outlined),
-                      title: const Text('Edit Profil'),
-                      trailing: const Icon(Icons.chevron_right),
-                      onTap: _openEditProfile,
+                  const SizedBox(height: 20),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
                     ),
-                    const Divider(height: 1),
-                    ListTile(
-                      leading: const Icon(Icons.settings_outlined),
-                      title: const Text('Pengaturan'),
-                      trailing: const Icon(Icons.chevron_right),
-                      onTap: () => _showUnavailableMessage(
-                        context,
-                        'Halaman Pengaturan belum tersedia.',
-                      ),
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: const Icon(Icons.edit_outlined),
+                          title: const Text('Edit Profil'),
+                          trailing: const Icon(Icons.chevron_right),
+                          onTap: () => _openEditProfile(context),
+                        ),
+                        const Divider(height: 1),
+                        ListTile(
+                          leading: const Icon(Icons.settings_outlined),
+                          title: const Text('Pengaturan'),
+                          trailing: const Icon(Icons.chevron_right),
+                          onTap: () => _showUnavailableMessage(
+                            context,
+                            'Halaman Pengaturan belum tersedia.',
+                          ),
+                        ),
+                        const Divider(height: 1),
+                        ListTile(
+                          leading: const Icon(Icons.info_outline),
+                          title: const Text('Tentang Aplikasi'),
+                          trailing: const Icon(Icons.chevron_right),
+                          onTap: () => _showAboutDialog(context),
+                        ),
+                        const Divider(height: 1),
+                        ListTile(
+                          leading: const Icon(Icons.logout, color: Colors.red),
+                          title: const Text('Logout'),
+                          trailing: const Icon(Icons.chevron_right),
+                          onTap: () => _confirmLogout(context),
+                        ),
+                      ],
                     ),
-                    const Divider(height: 1),
-                    ListTile(
-                      leading: const Icon(Icons.info_outline),
-                      title: const Text('Tentang Aplikasi'),
-                      trailing: const Icon(Icons.chevron_right),
-                      onTap: () => _showAboutDialog(context),
-                    ),
-                    const Divider(height: 1),
-                    ListTile(
-                      leading: const Icon(Icons.logout, color: Colors.red),
-                      title: const Text('Logout'),
-                      trailing: const Icon(Icons.chevron_right),
-                      onTap: () => _confirmLogout(context),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
     );
   }
 
-  void _openEditProfile() {
-    final nameController = TextEditingController(text: _userName);
-    final interestsController = TextEditingController(text: _interests);
-    final bioController = TextEditingController(text: _bio);
-    var selectedIcon = _profileIcon;
+  void _openEditProfile(BuildContext context) {
+    final nameController = TextEditingController(text: userNameNotifier.value);
+    final interestsController =
+        TextEditingController(text: interestsNotifier.value);
+    final bioController = TextEditingController(text: bioNotifier.value);
+    final ValueNotifier<IconData> selectedIconNotifier =
+        ValueNotifier<IconData>(profileIconNotifier.value);
 
     showDialog<void>(
       context: context,
-      builder: (dialogContext) => StatefulBuilder(
-        builder: (context, setDialogState) => AlertDialog(
+      builder: (dialogContext) => ValueListenableBuilder<IconData>(
+        valueListenable: selectedIconNotifier,
+        builder: (context, selectedIcon, _) => AlertDialog(
           title: const Text('Edit Profil'),
           content: SingleChildScrollView(
             child: Column(
@@ -163,7 +186,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onTap: () => _chooseProfileIcon(
                       context,
                       selectedIcon,
-                      (icon) => setDialogState(() => selectedIcon = icon),
+                      (icon) => selectedIconNotifier.value = icon,
                     ),
                     borderRadius: BorderRadius.circular(50),
                     child: CircleAvatar(
@@ -182,7 +205,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     onPressed: () => _chooseProfileIcon(
                       context,
                       selectedIcon,
-                      (icon) => setDialogState(() => selectedIcon = icon),
+                      (icon) => selectedIconNotifier.value = icon,
                     ),
                     icon: const Icon(Icons.photo_camera_outlined, size: 18),
                     label: const Text('Ganti Foto Profil'),
@@ -214,16 +237,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
             FilledButton(
               onPressed: () {
                 final newName = nameController.text.trim();
-                setState(() {
-                  _userName = newName.isEmpty ? 'Pengguna' : newName;
-                  _interests = interestsController.text.trim().isEmpty
-                      ? 'Belum diisi'
-                      : interestsController.text.trim();
-                  _bio = bioController.text.trim().isEmpty
-                      ? 'Belum diisi'
-                      : bioController.text.trim();
-                  _profileIcon = selectedIcon;
-                });
+                final savedName = newName.isEmpty ? 'Pengguna' : newName;
+                userNameNotifier.value = savedName;
+                UserData.activeUserName = savedName;
+                interestsNotifier.value =
+                    interestsController.text.trim().isEmpty
+                        ? 'Belum diisi'
+                        : interestsController.text.trim();
+                bioNotifier.value = bioController.text.trim().isEmpty
+                    ? 'Belum diisi'
+                    : bioController.text.trim();
+                profileIconNotifier.value = selectedIcon;
                 Navigator.pop(dialogContext);
               },
               child: const Text('Simpan'),
@@ -235,6 +259,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       nameController.dispose();
       interestsController.dispose();
       bioController.dispose();
+      selectedIconNotifier.dispose();
     });
   }
 

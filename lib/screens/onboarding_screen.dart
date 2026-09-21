@@ -61,7 +61,7 @@ class OnboardingPage2 extends StatelessWidget {
         // Setelah LoginPage asli jadi, ganti builder menjadi:
         //   builder: (context) => const LoginPage(),
         // dan gunakan Navigator.pushReplacement agar Back tidak kembali ke onboarding.
-        Navigator.push(
+        Navigator.pushReplacement(
           context,
           MaterialPageRoute(
             builder: (context) => LoginScreen(),

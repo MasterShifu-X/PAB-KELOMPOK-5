@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import '../data/habit_data.dart';
 import '../data/user_data.dart';
 import 'detail_habit_screen.dart';
-import 'onboarding_screen.dart';
 import 'login_screen.dart';
 import 'progress_screen.dart';
 import 'quote_screen.dart';
 import 'register_screen.dart';
 import 'profile_screen.dart';
-import 'splash_screen.dart';
 
 // ============================================================
 // Layar 6: Home (Dashboard) — StatelessWidget
@@ -69,44 +67,10 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
 
-            // Menu Item: Layar 1 - Splash Screen
-            ListTile(
-              leading: const Icon(Icons.flash_on, color: Colors.indigo),
-              title: const Text('Splash Screen'),
-              subtitle: const Text('Layar 1'),
-              onTap: () {
-                Navigator.pop(context); // tutup drawer
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const SplashScreen(),
-                  ),
-                );
-              },
-            ),
-
-            // Menu Item: Layar 2-3 - Onboarding
-            // Menu Item: Layar 2-3 - Onboarding
-            ListTile(
-              leading: const Icon(Icons.swipe, color: Colors.indigo),
-              title: const Text('Onboarding'),
-              subtitle: const Text('Layar 2-3'),
-              onTap: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const OnboardingPage1(),
-                  ),
-                );
-              },
-            ),
-
-            // Menu Item: Layar 4 - Login
+            // Menu Item: Login
             ListTile(
               leading: const Icon(Icons.login, color: Colors.indigo),
               title: const Text('Login'),
-              subtitle: const Text('Layar 4'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -118,11 +82,10 @@ class HomeScreen extends StatelessWidget {
               },
             ),
 
-            // Menu Item: Layar 5 - Register
+            // Menu Item: Register
             ListTile(
               leading: const Icon(Icons.person_add, color: Colors.indigo),
               title: const Text('Register'),
-              subtitle: const Text('Layar 5'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -136,11 +99,10 @@ class HomeScreen extends StatelessWidget {
 
             const Divider(),
 
-            // Menu Item: Layar 6 - Dashboard (current)
+            // Menu Item: Dashboard (current)
             ListTile(
               leading: const Icon(Icons.home, color: Colors.indigo),
               title: const Text('Dashboard'),
-              subtitle: const Text('Layar 6 (Halaman ini)'),
               selected: true,
               selectedTileColor: Colors.indigo.shade50,
               onTap: () {
@@ -148,11 +110,10 @@ class HomeScreen extends StatelessWidget {
               },
             ),
 
-            // Menu Item: Layar 8 - Statistik/Progress
+            // Menu Item: Statistik/Progress
             ListTile(
               leading: const Icon(Icons.bar_chart, color: Colors.indigo),
               title: const Text('Statistik / Progress'),
-              subtitle: const Text('Layar 8'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -164,11 +125,10 @@ class HomeScreen extends StatelessWidget {
               },
             ),
 
-            // Menu Item: Layar 9 - Quote/Artikel
+            // Menu Item: Quote/Artikel
             ListTile(
               leading: const Icon(Icons.format_quote, color: Colors.indigo),
               title: const Text('Quote / Artikel Motivasi'),
-              subtitle: const Text('Layar 9'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
@@ -178,11 +138,10 @@ class HomeScreen extends StatelessWidget {
               },
             ),
 
-            // Menu Item: Layar 10 - Profil
+            // Menu Item: Profil
             ListTile(
               leading: const Icon(Icons.person, color: Colors.indigo),
               title: const Text('Profil'),
-              subtitle: const Text('Layar 10'),
               onTap: () {
                 Navigator.pop(context);
                 Navigator.push(
