@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'placeholder_screen.dart';
+import 'login_screen.dart';
 
 class OnboardingColors {
   static const Color background = Color(0xFFF5F7FF); // indigo sangat muda
@@ -64,11 +64,7 @@ class OnboardingPage2 extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const PlaceholderScreen(
-              title: 'Login',
-              description: 'Halaman login pengguna.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
-              icon: Icons.login,
-            ),
+            builder: (context) => LoginScreen(),
           ),
         );
       },
