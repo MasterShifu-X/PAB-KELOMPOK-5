@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../data/habit_data.dart';
 import '../data/user_data.dart';
 import 'detail_habit_screen.dart';
+import 'onboarding_screen.dart';
 import 'login_screen.dart';
 import 'placeholder_screen.dart';
 import 'progress_screen.dart';
@@ -79,7 +80,8 @@ class HomeScreen extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => const PlaceholderScreen(
                       title: 'Splash Screen',
-                      description: 'Logo + tagline motivasi singkat.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
+                      description:
+                          'Logo + tagline motivasi singkat.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
                       icon: Icons.flash_on,
                     ),
                   ),
@@ -87,6 +89,7 @@ class HomeScreen extends StatelessWidget {
               },
             ),
 
+            // Menu Item: Layar 2-3 - Onboarding
             // Menu Item: Layar 2-3 - Onboarding
             ListTile(
               leading: const Icon(Icons.swipe, color: Colors.indigo),
@@ -97,11 +100,7 @@ class HomeScreen extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const PlaceholderScreen(
-                      title: 'Onboarding',
-                      description: 'Slide 1: "Bangun kebiasaan baik setiap hari"\nSlide 2: "Pantau progress dirimu"\n\n(Layar ini akan dibuat oleh anggota tim lain)',
-                      icon: Icons.swipe,
-                    ),
+                    builder: (context) => const OnboardingPage1(),
                   ),
                 );
               },
@@ -195,7 +194,8 @@ class HomeScreen extends StatelessWidget {
                   MaterialPageRoute(
                     builder: (context) => const PlaceholderScreen(
                       title: 'Profil',
-                      description: 'Foto, nama, total habit yang diikuti.\nMenu: Pengaturan, Tentang Aplikasi, Logout.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
+                      description:
+                          'Foto, nama, total habit yang diikuti.\nMenu: Pengaturan, Tentang Aplikasi, Logout.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
                       icon: Icons.person,
                     ),
                   ),
@@ -215,7 +215,8 @@ class HomeScreen extends StatelessWidget {
               // --- Bagian Sambutan (Greeting Header) ---
               Text(
                 'Selamat pagi, $displayName!',
-                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 4),
               const Text(
@@ -326,7 +327,8 @@ class HomeScreen extends StatelessWidget {
                         MaterialPageRoute(
                           builder: (context) => const PlaceholderScreen(
                             title: 'Profil',
-                            description: 'Foto, nama, total habit yang diikuti.\nMenu: Pengaturan, Tentang Aplikasi, Logout.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
+                            description:
+                                'Foto, nama, total habit yang diikuti.\nMenu: Pengaturan, Tentang Aplikasi, Logout.\n\n(Layar ini akan dibuat oleh anggota tim lain)',
                             icon: Icons.person,
                           ),
                         ),
